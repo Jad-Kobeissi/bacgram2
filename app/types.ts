@@ -18,5 +18,6 @@ export interface TPost {
   authorId: string;
   viewers: TUser[];
   likers: TUser[];
+  imageUrls: string[];
   createdAt: Date;
 }

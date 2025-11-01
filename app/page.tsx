@@ -45,7 +45,7 @@ function Home() {
       id="home"
       className="flex justify-between items-center w-screen px-6 max-[850px]:flex-col-reverse  max-[850px]:gap-6 overflow-hidden my-64"
     >
-      <div className="w-1/2 flex flex-col max-[530px]:w-screen max-[530px]:px-4">
+      <div className="w-1/2 flex flex-col max-[530px]:w-screen max-[530px]:px-4 max-[600px]:w-screen px-4">
         <h1 className="text-[1.8rem] font-semibold">Welcome To Bacgram!</h1>
         <p className="text-(--secondary-text)">
           Bacgram is the platform for BAC students to connect, share, learn and

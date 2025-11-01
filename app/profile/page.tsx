@@ -11,14 +11,15 @@ import Error from "../Error";
 import Nav from "../Nav";
 import Post from "../Post";
 
-export default function Home() {
+export default function Profile() {
   const { user } = UseUser();
   const [posts, setPosts] = useState<TPost[]>([]);
   const [error, setError] = useState("");
   const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
   const fetchPosts = () => {
     axios
-      .get("/api/posts", {
+      .get(`/api/posts/user/${user?.id}?page=${page}`, {
         headers: {
           Authorization: `Bearer ${getCookie("token")}`,
         },
@@ -31,8 +32,11 @@ export default function Home() {
             new Map(joined.map((p) => [p.id, p])).values()
           ) as any;
 
+          console.log(unique);
+
           return unique;
         });
+        setPage((prev) => prev + 1);
       })
       .catch((err) => {
         setError(err.response.data);
@@ -46,18 +50,24 @@ export default function Home() {
     <>
       <Nav />
       <div className="mt-8">
-        <h1 className="text-[1.5rem] font-semibold text-center">
-          Welcome {user?.username}!
-        </h1>
+        <div>
+          <h1 className="text-[1.5rem] font-semibold text-center">
+            {user?.username}
+          </h1>
+          <div className="flex gap-4 justify-center">
+            <h1>Followers: {user?.followers.length}</h1>
+            <h1>Following: {user?.following.length}</h1>
+          </div>
+        </div>
         <InfiniteScroll
           next={fetchPosts}
           hasMore={hasMore}
           loader={<Loading className="flex justify-center mt-[20vh]" />}
           dataLength={posts.length}
-          className="flex flex-col items-center gap-6 mt-8"
+          className="flex flex-col gap-4 items-center mt-[20vh]"
         >
           {posts.map((post) => (
-            <Post post={post} user={user as TUser} key={post.id} />
+            <Post post={post} user={user as TUser} />
           ))}
         </InfiniteScroll>
         {error && <Error error={error} className="mt-[20vh] text-[1.3rem]" />}

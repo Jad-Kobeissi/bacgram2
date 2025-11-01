@@ -25,3 +25,8 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+input,
+textarea {
+  @apply px-2;
+}
