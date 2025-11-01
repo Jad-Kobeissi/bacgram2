@@ -1,5 +1,15 @@
+import axios from "axios";
 import { TPost, TUser } from "./types";
-export default function ({ post, user }: { post: TPost; user: TUser }) {
+import { getCookie } from "cookies-next";
+export default function ({
+  post,
+  user,
+  setPosts,
+}: {
+  post: TPost;
+  user: TUser;
+  setPosts: React.Dispatch<React.SetStateAction<TPost[]>>;
+}) {
   return (
     <div
       key={post.id}
@@ -18,17 +28,27 @@ export default function ({ post, user }: { post: TPost; user: TUser }) {
             key={index}
           />
         ))}
-        {post.authorId == user.id && (
-          <button
-            className="bg-(--brand-color) text-white px-12 py-2 font-bold rounded-md hover:bg-transparent active:bg-transparent hover:text-(--brand-color) active:text-(--brand-color) border border-(--brand-color) transition-all duration-200"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            Delete
-          </button>
-        )}
       </div>
+      {post.authorId == user.id && (
+        <button
+          className="bg-(--brand-color) text-white px-12 py-2 font-bold rounded-md hover:bg-transparent active:bg-transparent hover:text-(--brand-color) active:text-(--brand-color) border border-(--brand-color) transition-all duration-200"
+          onClick={(e) => {
+            e.stopPropagation();
+            axios
+              .delete(`/api/posts/${post.id}`, {
+                headers: {
+                  Authorization: `Bearer ${getCookie("token")}`,
+                },
+              })
+              .then((res) => {
+                setPosts((prev) => prev.filter((p) => p.id != post.id));
+                alert("Post deleted");
+              });
+          }}
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
 }

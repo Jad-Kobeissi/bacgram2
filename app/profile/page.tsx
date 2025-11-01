@@ -67,7 +67,7 @@ export default function Profile() {
           className="flex flex-col gap-4 items-center mt-[20vh]"
         >
           {posts.map((post) => (
-            <Post post={post} user={user as TUser} />
+            <Post post={post} user={user as TUser} setPosts={setPosts} />
           ))}
         </InfiniteScroll>
         {error && <Error error={error} className="mt-[20vh] text-[1.3rem]" />}

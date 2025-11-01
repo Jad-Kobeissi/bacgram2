@@ -31,6 +31,8 @@ export default function Home() {
             new Map(joined.map((p) => [p.id, p])).values()
           ) as any;
 
+          sessionStorage.setItem("posts", JSON.stringify(unique));
+
           return unique;
         });
       })
@@ -40,6 +42,18 @@ export default function Home() {
       });
   };
   useEffect(() => {
+    const posts = sessionStorage.getItem("posts");
+    if (posts) {
+      setPosts((prev) => {
+        const joined = [...prev, ...JSON.parse(posts)];
+
+        const unique = Array.from(
+          new Map(joined.map((p) => [p.id, p])).values()
+        );
+
+        return unique;
+      });
+    }
     fetchPosts();
   }, []);
   return (
@@ -57,7 +71,12 @@ export default function Home() {
           className="flex flex-col items-center gap-6 mt-8"
         >
           {posts.map((post) => (
-            <Post post={post} user={user as TUser} key={post.id} />
+            <Post
+              post={post}
+              user={user as TUser}
+              key={post.id}
+              setPosts={setPosts}
+            />
           ))}
         </InfiniteScroll>
         {error && <Error error={error} className="mt-[20vh] text-[1.3rem]" />}
