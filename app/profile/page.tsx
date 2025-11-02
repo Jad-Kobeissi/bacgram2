@@ -49,7 +49,7 @@ export default function Profile() {
   return (
     <>
       <Nav />
-      <div className="mt-8">
+      <div className="flex flex-col pt-30">
         <div>
           <h1 className="text-[1.5rem] font-semibold text-center">
             {user?.username}
@@ -64,13 +64,13 @@ export default function Profile() {
           hasMore={hasMore}
           loader={<Loading className="flex justify-center mt-[20vh]" />}
           dataLength={posts.length}
-          className="flex flex-col gap-4 items-center mt-[20vh]"
+          className="flex flex-col gap-8 items-center mt-[20vh]"
         >
           {posts.map((post) => (
             <Post post={post} user={user as TUser} setPosts={setPosts} />
           ))}
         </InfiniteScroll>
-        {error && <Error error={error} className="mt-[20vh] text-[1.3rem]" />}
+        {error && <Error error={error} className="my-8 text-[1.8rem]" />}
       </div>
     </>
   );

@@ -59,7 +59,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <div className="mt-8">
+      <div className="pt-30">
         <h1 className="text-[1.5rem] font-semibold text-center">
           Welcome {user?.username}!
         </h1>

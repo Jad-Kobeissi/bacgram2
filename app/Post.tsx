@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TPost, TUser } from "./types";
 import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 export default function ({
   post,
   user,
@@ -10,10 +11,14 @@ export default function ({
   user: TUser;
   setPosts: React.Dispatch<React.SetStateAction<TPost[]>>;
 }) {
+  const router = useRouter();
   return (
     <div
       key={post.id}
       className="w-1/3 max-[800px]:w-full p-10 h-fit shadow-[0px_0px_1.4px_var(--foreground)] rounded-lg"
+      onClick={() => {
+        router.push(`/post/${post.id}`);
+      }}
     >
       <h1 className="text-[1.2rem]">{post.author.username}</h1>
       <h1 className="text-[1.5rem] font-bold">{post.title}</h1>
@@ -23,7 +28,7 @@ export default function ({
           <img
             src={image}
             alt="post image"
-            className="snap-center w-[200rem] h-full object-cover"
+            className="snap-center h-full object-cover"
             onClick={() => window.open(image, "_blank")}
             key={index}
           />

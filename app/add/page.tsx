@@ -28,7 +28,7 @@ export default function Login() {
           className="w-1/3 max-[850px]:hidden"
         />
         <form
-          className="flex flex-col items-center justify-center gap-4 w-1/2 rounded-md py-12 max-[850px]:w-full h-fit"
+          className="flex flex-col items-center justify-center gap-4 w-1/3 rounded-md py-12 max-[850px]:w-full h-fit"
           onSubmit={(e) => {
             e.stopPropagation();
             setLoading(true);
@@ -43,7 +43,7 @@ export default function Login() {
                 },
               })
               .then((res) => {
-                alert("Post");
+                alert("Posted");
                 setLoading(false);
               })
               .catch((err) => {
