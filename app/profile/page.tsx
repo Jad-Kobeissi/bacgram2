@@ -54,7 +54,7 @@ export default function Profile() {
           <h1 className="text-[1.5rem] font-semibold text-center">
             {user?.username}
           </h1>
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center text-(--secondary-text)">
             <h1>Followers: {user?.followers.length}</h1>
             <h1>Following: {user?.following.length}</h1>
           </div>

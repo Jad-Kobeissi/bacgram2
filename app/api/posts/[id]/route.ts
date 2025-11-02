@@ -1,5 +1,6 @@
 import { decode, verify } from "jsonwebtoken";
-import { prisma } from "../../init";
+import { prisma, storage } from "../../init";
+import { deleteObject, ref } from "firebase/storage";
 
 export async function DELETE(
   req: Request,
@@ -24,6 +25,12 @@ export async function DELETE(
     if (post.authorId != decoded.id)
       return new Response("Forbidden", { status: 403 });
 
+    await Promise.all(
+      post.imageUrls.map(async (image) => {
+        const imageRef = ref(storage, image);
+        deleteObject(imageRef);
+      })
+    );
     await prisma.post.delete({
       where: {
         id,

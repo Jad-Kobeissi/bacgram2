@@ -65,7 +65,7 @@ export default function Login() {
               id="title"
               type="text"
               onChange={(e) => setTitle(e.target.value)}
-              className="shadow-[0px_0.4px_1.4px_var(--foreground)] w-full h-fit rounded-md py-2"
+              className="shadow-[0px_0.4px_1.4px_var(--foreground)] w-full h-fit rounded-md py-1"
             />
           </div>
           <div className="flex flex-col w-3/4">
