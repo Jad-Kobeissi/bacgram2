@@ -26,7 +26,7 @@ export default function SignUp() {
           className="w-1/3 max-[650px]:hidden"
         />
         <form
-          className="flex flex-col items-center justify-center gap-4 w-1/2 bg-(--card-color) shadow-[0px_0px_1px_var(--foreground)] rounded-md py-12 max-[850px]:w-full h-fit"
+          className="flex flex-col items-center justify-center gap-4 w-1/3 bg-(--card-color) shadow-[0px_0px_1px_var(--foreground)] rounded-md py-12 max-[850px]:w-full h-fit"
           onSubmit={(e) => {
             e.stopPropagation();
             setLoading(true);
